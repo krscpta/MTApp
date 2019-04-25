@@ -53,3 +53,33 @@ cf service MTAppRegistry
 cf unbind-service MTAppBackend MTAppRegistry
 cf delete-service MTAppRegistry -f
 cf undeploy MTApp --delete-services -f
+
+
+Authorizations:
+--------------
+
+xs-security.json:
+
+	}, {
+		"name": "$XSAPPNAME.User",
+		"description": "User"
+	}, {
+		"name": "$XSAPPNAME.Administrator",
+		"description": "Administrator"
+	}],
+	"role-templates": [{
+		"name": "user",
+		"description": "User Role",
+		"scope-references": ["$XSAPPNAME.User"]
+	}, {
+		"name": "administrator",
+		"description": "Administrator Role",
+		"scope-references": ["$XSAPPNAME.Administrator", "$XSAPPNAME.User"]
+
+server.js:
+
+	if (req.authInfo.checkScope("$XSAPPNAME.User")) {
+
+	} else {
+		res.status(403).send("Forbidden");
+	}
