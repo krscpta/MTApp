@@ -13,8 +13,5 @@
 	"main": "server.js",
 	"scripts": {
 		"start": "node server.js"
-	},
-	"engines": {
-		"node": "8.x"
 	}
 }
